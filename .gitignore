@@ -1,0 +1,142 @@
+# ====================
+# Python
+# ====================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+*.egg-info/
+dist/
+build/
+*.egg
+*.whl
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv/
+.env
+.env.local
+.python-version
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+
+# Editor backups
+*~
+.DS_Store
+Thumbs.db
+
+# ====================
+# Node.js / Frontend
+# ====================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Build outputs
+dist/
+build/
+out/
+.next/
+.nuxt/
+output/
+
+# Development files
+.env.local
+.env.development.local
+.env.test.local
+.env.staging.local
+.env.production.local
+
+# Vite
+!.vite
+.vite/**
+
+# ====================
+# Logs and databases
+# ====================
+*.log
+logs
+*.sqlite
+*.sqlite3
+*.db
+
+# ====================
+# Docker
+# ====================
+.dockerignore
+Dockerfile.backend
+Dockerfile.frontend
+compose.yaml
+docker-compose.override.yml
+
+# ====================
+# OS
+# ====================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# ====================
+# Secrets & Credentials
+# ====================
+# NEVER commit these
+secrets/
+*.pem
+*.key
+*.crt
+*.csr
+*.p12
+*.pfx
+*.jks
+*.keystore
+
+# Supabase
+supabase/
+
+# Auth0
+.auth0/
+
+# ====================
+# CI/CD
+# ====================
+.github/workflows/*.yml.disabled
+.gitlab-ci.yml
+
+# ====================
+# Testing
+# ====================
+coverage/
+.nyc_output/
+coverage-final.json
+
+# ====================
+# Misc
+# ====================
+*.DS_Store
+*.tmp
+*.temp
+.DS_Store?
+Icon?
+nohup.out

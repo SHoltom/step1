@@ -1,0 +1,86 @@
+# ====================
+# Stage 1: Build
+# ====================
+FROM python:3.11-slim AS builder
+
+# Prevents Python from writing __pycache__ files
+ENV PYTHONDONTWRITEBYTECODE=1
+# Forces Python to output logs to stdout/stderr
+ENV PYTHONUNBUFFERED=1
+
+# Install build dependencies
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        build-essential \
+        libpq-dev \
+        libssl-dev \
+        libffi-dev \
+        gcc \
+        musl-dev \
+        libxml2-dev \
+        libxslt1-dev \
+        zlib1g-dev \
+        wget \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy requirements and install dependencies
+COPY requirements.txt /tmp/requirements.txt
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir -r /tmp/requirements.txt
+
+# ====================
+# Stage 2: Final Image
+# ====================
+FROM python:3.11-slim AS final
+
+LABEL org.opencontainers.image.source="https://github.com/yourusername/react-python-supabase-auth0"
+
+# Reuse environment variables
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+# Install minimal runtime dependencies
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        ca-certificates \
+        libpq5 \
+        libssl1.1 \
+        libffi6 \
+        tzdata \
+    && rm -rf /var/lib/apt/lists/* \
+    && groupadd --system --gid 1001 appuser \
+    && useradd --system --uid 1001 --gid 1001 appuser
+
+# Create app directory
+WORKDIR /app
+
+# Copy installed dependencies from builder stage
+COPY --from=builder /usr/local /usr/local
+
+# Copy application code
+COPY . .
+
+# Change ownership to non-root user
+RUN chown -R appuser:appuser /app
+
+# Switch to non-root user
+USER appuser
+
+# Expose port
+EXPOSE 8000
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+    CMD wget -qO- http://localhost:8000/health || exit 1
+
+# Run with gunicorn + uvicorn workers
+CMD ["gunicorn", \
+     "--bind", "0.0.0.0:8000", \
+     "--workers", "4", \
+     "--worker-class", "uvicorn.workers.UvicornWorker", \
+     "--worker-connections", "1000", \
+     "--max-requests", "1000", \
+     "--max-requests-jitter", "100", \
+     "--timeout", "30", \
+     "--keep-alive", "5", \
+     "main:app"]
