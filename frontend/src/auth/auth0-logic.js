@@ -10,7 +10,7 @@ export const initAuth0 = async () => {
   try {
     auth0Client = await createAuth0Client({
       domain: import.meta.env.VITE_AUTH0_DOMAIN,
-      client_id: import.meta.env.VITE_AUTH0_CLIENT_ID,
+      clientId: import.meta.env.VITE_AUTH0_CLIENT_ID,
       authorization_params: {
         redirect_uri: import.meta.env.VITE_AUTH0_REDIRECT_URI || window.location.origin,
         audience: import.meta.env.VITE_AUTH0_AUDIENCE
