@@ -1,6 +1,6 @@
 import time
-from redis_client import get_redis
-from config import settings
+from backend.redis_client import get_redis
+from backend.config import settings
 
 async def is_rate_limited(ip: str) -> bool:
     redis = await get_redis()

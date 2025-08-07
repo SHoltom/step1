@@ -56,7 +56,6 @@ export const loginWithMagicLink = async (email) => {
     console.error("Error initiating magic link login:", err);
     throw err;
   }
-}
 };
 
 /**

@@ -6,11 +6,11 @@ from typing import Dict
 from fastapi import HTTPException, Request, Response
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from jose import jwt, jwk, ExpiredSignatureError, JWTError
-from config import settings
-from rate_limiter import is_rate_limited
-from geoip import is_allowed_country
-from sessions import create_session
-from csrf import generate_csrf_token
+from backend.config import settings
+from backend.rate_limiter import is_rate_limited
+from backend.geoip import is_allowed_country
+from backend.sessions import create_session
+from backend.csrf import generate_csrf_token
 import asyncio
 
 

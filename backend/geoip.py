@@ -1,5 +1,5 @@
 import httpx
-from config import settings
+from backend.config import settings
 
 async def is_allowed_country(ip: str) -> bool:
     if settings.debug:

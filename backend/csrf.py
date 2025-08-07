@@ -1,7 +1,7 @@
 import secrets
 import time
 from fastapi.responses import Response
-from config import settings
+from backend.config import settings
 
 CSRF_EXPIRE = 3600
 

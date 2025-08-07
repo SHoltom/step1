@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Request, Response, Depends
 from fastapi.middleware.cors import CORSMiddleware
-from auth import JWTBearer
+from backend.auth import JWTBearer
 
 app = FastAPI()
 

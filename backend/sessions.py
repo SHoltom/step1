@@ -1,6 +1,6 @@
 import secrets
-from redis_client import get_redis
-from config import settings
+from backend.redis_client import get_redis
+from backend.config import settings
 
 async def create_session(user_dict: dict) -> str:
     session_id = secrets.token_urlsafe(48)
